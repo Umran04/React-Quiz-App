@@ -1,7 +1,17 @@
 import React from "react"
+import Welcome from "./components/Welcome"
+import Quiz from "./components/Quiz"
+import Green from "./images/green.png"
+import Orange from "./images/orange.png"
 
 export default function App(){
   return(
-    <h1>Hello</h1>
+    <>
+      <Welcome />
+      {/* <Quiz /> */}
+
+      <img className="green--img" src={Green}/>
+      <img className="orange--img" src={Orange}/>
+    </>
   )
 }

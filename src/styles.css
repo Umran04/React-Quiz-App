@@ -1,0 +1,82 @@
+*{
+    margin: 0px;
+}
+
+body{
+    margin: 0px;
+    background-color: #F5F7FB;
+    padding: 20px;
+    height: 100vh;
+    max-height: 708px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Karla', sans-serif;
+    
+    /* border: 1px solid red; */
+}
+
+#root{
+    height: 100%;
+    width: 100%;
+    max-width: 500px;
+    max-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid blue; */
+
+}
+
+button{
+    cursor: pointer;
+}
+
+.green--img{
+    position:fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.orange--img{
+    position:fixed;
+    top: 0;
+    right: 0;
+}
+
+/* WELCOME COMPONENT AND ITS ELEMENTS*/
+
+.welcome--main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #293264;
+    /* border: 1px solid yellow; */
+}
+
+.heading{
+    font-size:31px ;
+    font-weight: bold;
+    
+}
+
+.description{
+    margin-top: 20px;
+    margin-bottom: 40px ;
+    max-width: 190px;
+    font-size: 16px;
+    font-weight: medium;
+    text-align: center;
+}
+
+.start--btn{
+    background-color: #293264;
+    color:#F5F7FB;
+    border: none;
+    width: 193px;
+    height: 52px;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: medium;
+}
