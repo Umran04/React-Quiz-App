@@ -125,3 +125,8 @@ button{
     font-family: 'Karla', sans-serif;
 
 }
+
+.isHeld{
+    background-color: #D6DBF5;
+    border: none;
+}
