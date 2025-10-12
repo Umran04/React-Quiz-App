@@ -5,7 +5,11 @@ import clsx from "clsx"
 export default function Answer(props){
     return(
         <>
-            <button className={clsx("answer--btn",{isHeld : props.isHeld})} onClick={props.onClick} >{props.answer}</button>
+            <button
+             className={clsx("answer--btn",{isHeld : props.isHeld, isWrong : props.isWrong, isCorrect : props.isCorrect, isSelected : props.isHeld})} onClick={props.onClick}
+             disabled={props.shouldDisable} >
+                {props.answer}
+            </button>
         </>
     )
 }

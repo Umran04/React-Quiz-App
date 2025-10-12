@@ -130,3 +130,17 @@ button{
     background-color: #D6DBF5;
     border: none;
 }
+
+.isWrong{
+    background-color: #F8BCBC;
+    border: none;
+}
+
+.isCorrect, .isSelected{
+    background-color: #97D782;
+    border: none;
+    
+}
+
+
+/*isWrong, isCorrect, isSelected*/

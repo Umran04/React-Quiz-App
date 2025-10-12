@@ -1,4 +1,4 @@
-import React from "react"
+import React, { use } from "react"
 import Answer from "./Answer"
 import { useState,useEffect } from "react"
 
@@ -7,7 +7,9 @@ export default function Quiz(){
 
     const [questions,setQuestions] = useState([])
     const [selectedAnswers, setSelectedAnswers] = useState({});
-    const [isCorrect, setIsCorrect] = useState()
+    const [isChecking,setIsChecking] = useState(false)
+    const [showAnswers,setShowAnswers] = useState([])
+    
 
 
     useEffect(() => {
@@ -45,7 +47,11 @@ export default function Quiz(){
           }
         });
       }
-      
+      //TODO -> CHECK BUTTON CLICK
+      // CHEKS IF SELECTED ANSWER === CORRECT ANSWER
+      // SEND THRU PROPS -> SO DESIGN CAN BE APPLIED TO BUTTONS
+      // DISPLAY FINAL SCORE
+      // NEW GAME BUTTON AND FUNCTIONALITY
     
     const questionEl = questions.map((q, questionIndex) => {
         
@@ -60,6 +66,10 @@ export default function Quiz(){
                             id={answerIndex}
                             onClick={() => holdAnswer(questionIndex, answerIndex)}
                             isHeld={selectedAnswers[questionIndex] === answerIndex}
+                            isWrong={isChecking && selectedAnswers[questionIndex] !== answerIndex && answer === q.correct_answer && selectedAnswers[questionIndex] !== answerIndex}
+                            isCorrect={isChecking === true && selectedAnswers[questionIndex] === answerIndex && answer === q.correct_answer}
+                            // displaying styles based on condtions of states
+                            shouldDisable={isChecking}
                             answer={answer}
                         />
                     ))}
@@ -69,7 +79,15 @@ export default function Quiz(){
         );
     });
     
+    
 
+    
+    function checkAnswers(){
+        console.log("answer check")
+        setIsChecking(true)
+        
+
+    }
    
     
    
@@ -84,7 +102,7 @@ export default function Quiz(){
 
             {questionEl}
             {Object.keys(selectedAnswers).length === questions.length && (
-                <button>Check Answers</button>
+                <button onClick={checkAnswers}> Check Answers</button>
             )}
 
             
