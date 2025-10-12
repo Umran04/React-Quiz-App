@@ -126,6 +126,18 @@ button{
 
 }
 
+.check-answers{
+    color: white;
+    background-color: #293264;
+    border: none;
+    margin: auto;
+    margin-top: 15px;
+    width: 120px;
+    height: 35px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
 .isHeld{
     background-color: #D6DBF5;
     border: none;

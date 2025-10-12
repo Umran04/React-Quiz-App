@@ -102,7 +102,7 @@ export default function Quiz(){
 
             {questionEl}
             {Object.keys(selectedAnswers).length === questions.length && (
-                <button onClick={checkAnswers}> Check Answers</button>
+                <button className="check-answers" onClick={checkAnswers}> Check Answers</button>
             )}
 
             

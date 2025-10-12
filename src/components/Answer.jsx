@@ -6,7 +6,7 @@ export default function Answer(props){
     return(
         <>
             <button
-             className={clsx("answer--btn",{isHeld : props.isHeld, isWrong : props.isWrong, isCorrect : props.isCorrect, isSelected : props.isHeld})} onClick={props.onClick}
+             className={clsx("answer--btn",{isHeld : props.isHeld, isWrong : props.isWrong, isCorrect : props.isCorrect, isSelected : props.isHeld && props.shouldDisable})} onClick={props.onClick}
              disabled={props.shouldDisable} >
                 {props.answer}
             </button>
