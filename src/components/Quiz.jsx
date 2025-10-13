@@ -1,6 +1,8 @@
-import React, { use } from "react"
+import React from "react"
 import Answer from "./Answer"
-import { useState,useEffect } from "react"
+import { useState,useEffect, useRef } from "react"
+import he from "he"
+
 
 
 export default function Quiz(){
@@ -8,12 +10,12 @@ export default function Quiz(){
     const [questions,setQuestions] = useState([])
     const [selectedAnswers, setSelectedAnswers] = useState({});
     const [isChecking,setIsChecking] = useState(false)
-    const [showAnswers,setShowAnswers] = useState([])
-    
+    const [isGameOver, setIsGameOver] = useState(false)
+    const [score,setScore] = useState(0)  
+    const newButtonRef = useRef(null)  
 
 
-    useEffect(() => {
-        async function fetchQuestions() {
+    async function fetchQuestions() {
             const res = await fetch('https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=multiple');
             const data = await res.json();
             setQuestions(data.results.map(q => {
@@ -24,9 +26,13 @@ export default function Quiz(){
             }))
             
         }
-    
+
+
+    useEffect(() => {
+        
         fetchQuestions(); 
     }, []);
+    //moved fetchquestions outside so i can call after new game is clicked
  
 
     
@@ -47,17 +53,14 @@ export default function Quiz(){
           }
         });
       }
-      //TODO -> CHECK BUTTON CLICK
-      // CHEKS IF SELECTED ANSWER === CORRECT ANSWER
-      // SEND THRU PROPS -> SO DESIGN CAN BE APPLIED TO BUTTONS
-      // DISPLAY FINAL SCORE
-      // NEW GAME BUTTON AND FUNCTIONALITY
+     
+      
     
     const questionEl = questions.map((q, questionIndex) => {
         
       return (
             <div key={q.question} className="question--answer--component">
-                <h4>{q.question}</h4>
+                <h4>{he.decode(q.question)}</h4>
     
                 <div className="btn-container">
                     {q.allAnswers.map((answer, answerIndex) => (
@@ -70,7 +73,7 @@ export default function Quiz(){
                             isCorrect={isChecking === true && selectedAnswers[questionIndex] === answerIndex && answer === q.correct_answer}
                             // displaying styles based on condtions of states
                             shouldDisable={isChecking}
-                            answer={answer}
+                            answer={he.decode(answer)}
                         />
                     ))}
                 </div>
@@ -83,14 +86,35 @@ export default function Quiz(){
 
     
     function checkAnswers(){
-        console.log("answer check")
-        setIsChecking(true)
-        
+        if(!isGameOver){
+            setIsChecking(true)
+            setIsGameOver(true)
 
+            let count = 0;
+            questions.forEach((q, index) => {
+                const selected = selectedAnswers[index];
+                if (q.correct_answer === q.allAnswers[selected]) { //displaying score amount
+                count++;
+                }
+            });
+          setScore(count);
+
+        }else{
+            setIsChecking(false)
+            setIsGameOver(false)
+            setSelectedAnswers({})
+            fetchQuestions();
+            setScore(0)
+        }
     }
    
     
-   
+    useEffect(() =>{
+        if(isGameOver && newButtonRef.current){
+            newButtonRef.current.scrollIntoView({behaviour: 'smooth'})
+            newButtonRef.current.focus()
+        }
+    }, [isGameOver])
 
    
     
@@ -101,14 +125,14 @@ export default function Quiz(){
             
 
             {questionEl}
-            {Object.keys(selectedAnswers).length === questions.length && (
-                <button className="check-answers" onClick={checkAnswers}> Check Answers</button>
-            )}
 
-            
-            
-            
-        </main>
+             {isGameOver === true ? <p className="score" >Your score is {score} / 5</p> : null}
+
+            {Object.keys(selectedAnswers).length === questions.length && (
+                <button className="check-answers" onClick={checkAnswers} ref={newButtonRef}> {isChecking === false ? 'Check Answers' : 'New Game'}</button>
+            )}
+        
+         </main>
         </>
     )
 }
